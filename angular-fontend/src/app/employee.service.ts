@@ -20,4 +20,8 @@ export class EmployeeService {
     //console.log(employ);
     return this.httpClient.get<Employee[]>('/api/v1/employees');
   }
+
+  createEmployee(employee : Employee) : Observable<Object>{
+    return this.httpClient.post('/api/v1/employees' , employee);
+  }
 }
