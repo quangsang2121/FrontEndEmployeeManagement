@@ -9,19 +9,24 @@ import { Observable } from 'rxjs';
 })
 export class EmployeeService {
   
-  private baseURL= "http://localhost:8080/api/v1/employees";
+  private baseURL= "/api/v1/employees";
 
   constructor(private httpClient :HttpClient) { }
 
   getEmployeesList() : Observable<Employee[]>{
-    //return this.httpClient.get<Employee[]>('/api/v1/employees');
-    //console.log("ahihi");
-    //const employ = this.httpClient.get<Employee[]>('http://localhost:8080/api/v1/employees');
-    //console.log(employ);
-    return this.httpClient.get<Employee[]>('/api/v1/employees');
+
+    return this.httpClient.get<Employee[]>(`${this.baseURL}`);
   }
 
   createEmployee(employee : Employee) : Observable<Object>{
     return this.httpClient.post('/api/v1/employees' , employee);
+  }
+
+  getEmployeeById(id : number) :Observable<Employee> {
+    return this.httpClient.get<Employee>(`${this.baseURL}/${id}`)
+  }
+
+  updateEmployee(id: number, employee: Employee): Observable<Object>{
+    return this.httpClient.put(`${this.baseURL}/${id}`, employee);
   }
 }
